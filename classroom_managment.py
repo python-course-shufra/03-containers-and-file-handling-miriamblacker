@@ -103,5 +103,7 @@ def get_professions(name):
     prof=[]
     i=find_student(name)
     for j in  classroom[i]['grades']:
-        prof.append(j)
+        if j[0] not in prof:
+            prof.append(j[0])
     return prof
+print(get_professions('Charlie'))
