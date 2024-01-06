@@ -32,7 +32,11 @@ classroom = [
         ],
     },
 ]
-
+def find_student(name):
+    for k, val in enumerate(classroom):
+        if val['name']==name:
+            return k
+    return -1
 
 def add_student(name, email=None):
     """Add a new student to the classroom
@@ -43,21 +47,39 @@ def add_student(name, email=None):
     'grade': initialize with empty list
     """
     pass
+    if email is None:
+        email=name+'@example.com'
+    email=email.lower()
+    new_student={
+        'name': name,
+        'email': email,
+        'grades':[]
+    }
+    classroom.append(new_student)
 
 
 def delete_student(name):
     """Delete a student from the classroom"""
     pass
+    if find_student(name)!=-1:
+        del classroom[find_student(name)]
+    
 
 
 def set_email(name, email):
     """Sets the email of the student"""
     pass
+    i=find_student(name)
+    if i!=-1:
+        classroom[i]['email']=email
 
 
 def add_grade(name, profession, grade):
     """Adds a new grade to the student grades"""
     pass
+    i=find_student(name)
+    if i!= -1:
+        classroom[i]['grades'].append((profession, grade))
 
 
 def avg_grade(name, profession):
@@ -65,8 +87,21 @@ def avg_grade(name, profession):
     in the specified profession
     """
     pass
+    i=find_student(name)
+    avg=0
+    cnt=0
+    for j in classroom[i]['grades']:
+        if j[0]==profession:
+            avg+=j[1]
+            cnt+=1
+    return avg/cnt
 
 
 def get_professions(name):
     """Returns a list of unique professions that student has grades in"""
     pass
+    prof=[]
+    i=find_student(name)
+    for j in  classroom[i]['grades']:
+        prof.append(j)
+    return prof
