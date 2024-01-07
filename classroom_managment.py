@@ -106,4 +106,3 @@ def get_professions(name):
         if j[0] not in prof:
             prof.append(j[0])
     return prof
-print(get_professions('Charlie'))
